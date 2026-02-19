@@ -157,7 +157,7 @@ export default function Dashboard() {
               <span className="text-gradient-emerald">{user.name}</span>
             </h1>
             <p className="text-sub text-base">
-              Your session is active and secured. Here's your account overview.
+              Your session is active and secured. Here your account overview.
             </p>
           </div>
 
