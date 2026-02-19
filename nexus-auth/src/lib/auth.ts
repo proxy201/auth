@@ -6,10 +6,13 @@ const EXPIRES_IN  = process.env.JWT_EXPIRES_IN || '7d';
 const COOKIE_NAME = 'nexus_token';
 
 /* ── Types ───────────────────────────────────────────────── */
-export interface TokenPayload extends JwtPayload {
-  sub: number;   // user id
+export interface TokenPayload {
+  sub: number;
   name: string;
+  iat?: number;
+  exp?: number;
 }
+
 
 /* ── Sign / verify ───────────────────────────────────────── */
 export function signToken(
@@ -30,7 +33,7 @@ export function verifyToken(token: string): TokenPayload | null {
       typeof decoded.sub === 'number' &&
       typeof decoded.name === 'string'
     ) {
-      return decoded as TokenPayload;
+      return decoded as unknown as TokenPayload;
     }
 
     return null;
@@ -38,6 +41,7 @@ export function verifyToken(token: string): TokenPayload | null {
     return null;
   }
 }
+
 
 /* ── Cookie helpers (server-side only) ───────────────────── */
 export function setAuthCookie(token: string): void {
